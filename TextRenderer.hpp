@@ -36,9 +36,11 @@ struct TextRenderer {
 			std::vector<Vertex> &vertices);
 
 	static void render(
-		const glm::uvec2 &drawable_size,
+		const glm::uvec2          &drawable_size,
 		const std::vector<Vertex> &vertices,
-		size_t num_characters);
+		size_t                     num_characters,
+		const glm::u8vec4         &color,
+		const glm::vec2           &offset);
 	
 	// a way to reference characters
 	// stored in the texture

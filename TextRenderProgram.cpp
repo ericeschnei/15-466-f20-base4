@@ -11,21 +11,23 @@ TextRenderProgram::TextRenderProgram() {
 		//vertex shader:
 		"#version 330\n"
 		"uniform mat4 OBJECT_TO_CLIP;\n"
+		"uniform vec2 OFFSET;\n"
 		"in vec4 Position;\n"
 		"in vec2 TexCoord;\n"
 		"out vec2 texCoord;\n"
 		"void main() {\n"
-		"	gl_Position = OBJECT_TO_CLIP * Position;\n"
-		"	texCoord = TexCoord;\n"
+		"	 gl_Position = OBJECT_TO_CLIP * (vec4(OFFSET, 0.0, 0.0) + Position);\n"
+		"	 texCoord = TexCoord;\n"
 		"}\n"
 	,
 		//fragment shader:
 		"#version 330\n"
 		"uniform sampler2D TEX;\n"
+		"uniform vec4 COLOR;\n"
 		"in vec2 texCoord;\n"
 		"out vec4 fragColor;\n"
 		"void main() {\n"
-		"	fragColor = vec4(texelFetch(TEX, ivec2(texCoord.xy), 0).rgba);\n"
+		"	fragColor = vec4(COLOR.rgb, texelFetch(TEX, ivec2(texCoord.xy), 0).r);\n"
 		"}\n"
 	);
 	//look up the locations of vertex attributes:
@@ -34,7 +36,10 @@ TextRenderProgram::TextRenderProgram() {
 
 	//look up the locations of uniforms:
 	OBJECT_TO_CLIP_mat4 = glGetUniformLocation(program, "OBJECT_TO_CLIP");
+	COLOR_vec4 = glGetUniformLocation(program, "COLOR");
+	OFFSET_vec2 = glGetUniformLocation(program, "OFFSET");
 	GLuint TEX_sampler2D = glGetUniformLocation(program, "TEX");
+
 
 	//set TEX to always refer to texture binding zero:
 	glUseProgram(program); //bind program -- glUniform* calls refer to this program now

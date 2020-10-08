@@ -91,7 +91,7 @@ void PlayMode::draw(glm::uvec2 const &drawable_size) {
 
 	std::vector<TextRenderer::Vertex> verts;
 	TextRenderer::get_string(output.c_str(), verts);
-	TextRenderer::render(drawable_size, verts, verts.size()/6);
+	TextRenderer::render(drawable_size, verts, verts.size()/6, glm::u8vec4(255, 255, 0, 255), glm::vec2(0.0f, 100.0f));
 
 	glDisable(GL_DEPTH_TEST);
 

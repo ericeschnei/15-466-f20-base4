@@ -225,7 +225,9 @@ void TextRenderer::get_string(const char *string, std::vector<Vertex> &vertices)
 void TextRenderer::render(
 		const glm::uvec2 &drawable_size,
 		const std::vector<Vertex> &vertices,
-		size_t num_characters) {
+		size_t num_characters,
+		const glm::u8vec4 &color,
+		const glm::vec2 &offset) {
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(
@@ -247,6 +249,18 @@ void TextRenderer::render(
 			1,
 			GL_FALSE,
 			glm::value_ptr(proj)
+	);
+	glUniform4f(
+			text_render_program->COLOR_vec4,
+			color.r / 256.0f,
+			color.g / 256.0f,
+			color.b / 256.0f,
+			color.a / 256.0f
+	);
+	glUniform2f(
+			text_render_program->OFFSET_vec2,
+			offset.x,
+			offset.y
 	);
 
 	glBindVertexArray(vao);
