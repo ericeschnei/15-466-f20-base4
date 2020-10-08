@@ -111,6 +111,8 @@ GAME_NAMES =
 	;
 
 COMMON_NAMES =
+	TextRenderProgram
+	TextRenderer
 	data_path
 	PathFont
 	PathFont-font
