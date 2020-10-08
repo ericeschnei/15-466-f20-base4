@@ -1,3 +1,5 @@
+#pragma once
+
 #include "GL.hpp"
 #include <glm/glm.hpp>
 #include <string>
@@ -15,14 +17,15 @@ struct TextRenderer {
 	inline static GLuint       texture;
 	inline static GLuint       vao, vbo;
 
-	inline static hb_buffer_t *buf;
-	inline static hb_font_t   *font;
+	inline static hb_font_t   *font = nullptr;
 
 	inline static FT_Library   ft_library;
 	inline static FT_Face      ft_face;
-	inline static constexpr size_t ft_size = 100;
+	inline static constexpr size_t ft_size = 2;
 
-	static void load_font(const std::string &font_path);
+	inline static size_t       line_height;
+
+	static void load_font(const glm::uvec2 &drawable_size, const std::string &font_path);
 	static void load_characters(const char *characters);
 	static void load_gl();
 
@@ -53,7 +56,6 @@ struct TextRenderer {
 	
 	TextRenderer();
 	~TextRenderer();
-
 
 
 };

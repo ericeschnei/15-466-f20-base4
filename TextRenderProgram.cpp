@@ -27,7 +27,7 @@ TextRenderProgram::TextRenderProgram() {
 		"in vec2 texCoord;\n"
 		"out vec4 fragColor;\n"
 		"void main() {\n"
-		"	fragColor = vec4(COLOR.rgb, texelFetch(TEX, ivec2(texCoord.xy), 0).r);\n"
+		"	fragColor = COLOR.rgba * vec4(1.0, 1.0, 1.0, texelFetch(TEX, ivec2(texCoord.xy), 0).r);\n"
 		"}\n"
 	);
 	//look up the locations of vertex attributes:

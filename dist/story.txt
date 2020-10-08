@@ -1,0 +1,40 @@
+Hello? Can you hear me?
+5 Yes, I can hear you.
+10 Who is this?
+-1 .
+-1 .
+Finally! It's been weeks since I've talked to another human being.
+15 Weeks? Why?
+20 Is this a joke?
+10 Who are you?
+-1 .
+I'm Commander Thompson of the Artemis V mission.
+15 The Artemis V mission? What does that entail?
+20 Okay, this is definitely a joke.
+25 I think I should hang up.
+-1 .
+I'm currently moving very quickly through the vast emptiness of space.
+35 You're an astronaut?
+35 Then why are you calling me?
+35 Are you okay?
+-1 .
+No, I promise I'm not joking. Please hear me out.
+10 Okay, then who are you?
+15 What are you doing?
+25 Sorry bud, this sounds like a prank call to me.
+-1 .
+Please. You're the first contact I've made in weeks. You can't do this.
+15 Okay, I'll give you the benefit of the doubt. What are you doing?
+30 I can do this. [HANG UP]
+-1 .
+-1 .
+[DIAL TONE]
+-1 .
+-1 .
+-1 .
+-1 .
+Just kidding, you got pranked! This is a prank call!
+-1 .
+-1 .
+-1 .
+-1 .

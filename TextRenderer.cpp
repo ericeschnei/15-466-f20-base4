@@ -12,25 +12,24 @@
 // https://github.com/harfbuzz/harfbuzz-tutorial/blob/master/hello-harfbuzz-freetype.c
 // https://harfbuzz.github.io/ch03s03.html
 
-void TextRenderer::load_font(const std::string &font_path) {
+void TextRenderer::load_font(const glm::uvec2 &drawable_size, const std::string &font_path) {
 	if (FT_Init_FreeType(&ft_library)) {
 		throw std::runtime_error("FT Library failed to initialize.");
 	}
 	if (FT_New_Face(ft_library, font_path.c_str(), 0, &ft_face)) {
 		throw std::runtime_error("FT Face failed to initialize.");
 	}
-	if (FT_Set_Char_Size(ft_face, 0, ft_size << 6, 0, 0)) {
+	if (FT_Set_Char_Size(ft_face, (drawable_size.x * ft_size), 0, 0, 0)) {
 		throw std::runtime_error("FT Set Char Size failed.");
 	}
 
 
 	font = hb_ft_font_create(ft_face, NULL);
-	buf = hb_buffer_create();
 }
 
 void TextRenderer::load_characters(const char *characters) {
 
-	hb_buffer_clear_contents(buf);
+	hb_buffer_t *buf = hb_buffer_create();
 	hb_buffer_add_utf8(buf, characters, -1, 0, -1);
 	hb_buffer_guess_segment_properties(buf);
 	hb_shape(font, buf, NULL, 0);
@@ -61,6 +60,8 @@ void TextRenderer::load_characters(const char *characters) {
 		tex_size.x += ft_face->glyph->bitmap.width;
 		tex_size.y = std::max(tex_size.y, ft_face->glyph->bitmap.rows);
 	}
+
+	line_height = tex_size.y;
 
 	glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &texture);
@@ -123,6 +124,7 @@ void TextRenderer::load_characters(const char *characters) {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	GL_ERRORS();
 
+	hb_buffer_destroy(buf);
 }
 
 void TextRenderer::load_gl() {
@@ -160,15 +162,11 @@ void TextRenderer::load_gl() {
 
 TextRenderer::~TextRenderer() {}
 
-TextRenderer::TextRenderer() {
-	if (buf == nullptr) {
-		throw std::runtime_error("Please initialize TextRenderer with a font.");
-	}
-}
+TextRenderer::TextRenderer() {}
 
 
 void TextRenderer::get_string(const char *string, std::vector<Vertex> &vertices) {
-	hb_buffer_clear_contents(buf);
+	hb_buffer_t *buf = hb_buffer_create();
 	hb_buffer_add_utf8(buf, string, -1, 0, -1);
 	hb_buffer_guess_segment_properties(buf);
 	hb_shape(font, buf, NULL, 0);
@@ -220,6 +218,7 @@ void TextRenderer::get_string(const char *string, std::vector<Vertex> &vertices)
 
 	}
 
+	hb_buffer_destroy(buf);
 }
 
 void TextRenderer::render(
@@ -275,5 +274,6 @@ void TextRenderer::render(
 	glUseProgram(0);
 
 	GL_ERRORS();
+
 
 }
