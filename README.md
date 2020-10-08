@@ -1,10 +1,10 @@
-# (TODO: your game's title)
+# Space Call
 
-Author: (TODO: your name)
+Author: Eric Schneider
 
-Design: (TODO: In two sentences or fewer, describe what is new and interesting about your game.)
+Design: I made a nice little text adventure engine that is able to read simple branching narratives from a text file and render them at runtime. However, I ran out of time before I could make a long text adventure for it :(
 
-Text Drawing: (TODO: how does the text drawing in this game work? Is text precomputed? Rendered at runtime? What files or utilities are involved?)
+Text Drawing: I use harfbuzz to do spacing and freetype to generate glyphs. First, I run the entire script through harfbuzz to generate a list of glpyhs that are used by the text adventure. Then, using freetype and glTexSubImage2D, I map all the glyphs onto a single texture atlas, storing their location in said atlas. Then, when the game needs to render a string, it can still shape the glyphs using harfbuzz, but it will be able to take the glyphs immediately off of the texture that I use.
 
 Screen Shot:
 
@@ -12,9 +12,9 @@ Screen Shot:
 
 How To Play:
 
-(TODO: describe the controls and (if needed) goals/strategy.)
+Options show up at the bottom of the screen. Click 'em!
 
-Sources: (TODO: list a source URL for any assets you did not create yourself. Make sure you have a license for the asset.)
+Sources: The font I used is the incredible [mononoki](https://madmalik.github.io/mononoki/), licensed under the SIL Open Font License 1.1. I chose monospace for stylistic reasons--the software should work with any font.
 
 This game was built with [NEST](NEST.md).
 
